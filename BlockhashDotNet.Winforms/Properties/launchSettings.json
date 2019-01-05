@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BlockhashDotNet.Winforms.vs": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\User\\Source\\Repos\\Blockhash.Net"
+    }
+  }
+}
