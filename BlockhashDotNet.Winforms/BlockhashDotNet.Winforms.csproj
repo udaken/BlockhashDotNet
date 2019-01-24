@@ -20,11 +20,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\BlockhashDotNet\BitSet.cs" Link="BitSet.cs" />
     <Compile Include="..\BlockhashDotNet\Blockhash.cs" Link="Blockhash.cs" />
     <Compile Include="..\BlockhashDotNet\SpanSortHelper.cs" Link="SpanSortHelper.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.11.3" />
     <PackageReference Include="System.Memory" Version="4.5.*" Condition="'$(TargetFramework)' == 'net46' Or '$(TargetFramework)' == 'net461' Or '$(TargetFramework)' == 'net462' Or '$(TargetFramework)' == 'net47' Or '$(TargetFramework)' == 'net471' Or '$(TargetFramework)' == 'net472'" />
   </ItemGroup>
 </Project>

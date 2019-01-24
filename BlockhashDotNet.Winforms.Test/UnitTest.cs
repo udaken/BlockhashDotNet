@@ -5,12 +5,57 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using BlockhashDotNet;
 using BlockhashDotNet.Winforms;
+using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace BlockhashDotNet.Winforms.Test
 {
     [TestClass]
     public class UnitTest
     {
+        [TestMethod]
+        public void TestBits1()
+        {
+            var bits = new BlockhashDotNet.BitSet(8);
+            bits[0x0] = true; AreEqual(bits.Bits[0x0], 0b00000001);
+            bits[0x1] = true; AreEqual(bits.Bits[0x0], 0b00000011);
+            bits[0x2] = true; AreEqual(bits.Bits[0x0], 0b00000111);
+            bits[0x3] = true; AreEqual(bits.Bits[0x0], 0b00001111);
+            bits[0x4] = true; AreEqual(bits.Bits[0x0], 0b00011111);
+            bits[0x5] = true; AreEqual(bits.Bits[0x0], 0b00111111);
+            bits[0x6] = true; AreEqual(bits.Bits[0x0], 0b01111111);
+            bits[0x7] = true; AreEqual(bits.Bits[0x0], 0b11111111);
+            bits[0x7] = false; AreEqual(bits.Bits[0x0], 0b01111111);
+            bits[0x6] = false; AreEqual(bits.Bits[0x0], 0b00111111);
+            bits[0x5] = false; AreEqual(bits.Bits[0x0], 0b00011111);
+            bits[0x4] = false; AreEqual(bits.Bits[0x0], 0b00001111);
+            bits[0x3] = false; AreEqual(bits.Bits[0x0], 0b00000111);
+            bits[0x2] = false; AreEqual(bits.Bits[0x0], 0b00000011);
+            bits[0x1] = false; AreEqual(bits.Bits[0x0], 0b00000001);
+            bits[0x0] = false; AreEqual(bits.Bits[0x0], 0b00000000);
+        }
+
+        [TestMethod]
+        public void TestBits2()
+        { 
+            var bits = new BlockhashDotNet.BitSet(16);
+            bits[0x8] = true; AreEqual(bits.Bits[0x1], 0b00000001);
+            bits[0x9] = true; AreEqual(bits.Bits[0x1], 0b00000011);
+            bits[0xA] = true; AreEqual(bits.Bits[0x1], 0b00000111);
+            bits[0xB] = true; AreEqual(bits.Bits[0x1], 0b00001111);
+            bits[0xC] = true; AreEqual(bits.Bits[0x1], 0b00011111);
+            bits[0xD] = true; AreEqual(bits.Bits[0x1], 0b00111111);
+            bits[0xE] = true; AreEqual(bits.Bits[0x1], 0b01111111);
+            bits[0xF] = true; AreEqual(bits.Bits[0x1], 0b11111111);
+            bits[0xF] = false; AreEqual(bits.Bits[0x1], 0b01111111);
+            bits[0xE] = false; AreEqual(bits.Bits[0x1], 0b00111111);
+            bits[0xD] = false; AreEqual(bits.Bits[0x1], 0b00011111);
+            bits[0xC] = false; AreEqual(bits.Bits[0x1], 0b00001111);
+            bits[0xB] = false; AreEqual(bits.Bits[0x1], 0b00000111);
+            bits[0xA] = false; AreEqual(bits.Bits[0x1], 0b00000011);
+            bits[0x9] = false; AreEqual(bits.Bits[0x1], 0b00000001);
+            bits[0x8] = false; AreEqual(bits.Bits[0x1], 0b00000000);
+        }
+
         static void TestImpl(int bits, Method method, string expect, string filename)
         {
             var filenames = new[] { "puffy_white.png", "00133601.jpg", "clipper_ship.jpg", "00136101.jpg", "32499201.jpg", "00094701.jpg", "stoplights.jpg", "00011601.jpg", "01109801.jpg", "00002701.jpg", "Babylonian.png", "06855701.jpg", "00106901.jpg", "24442301.jpg", "00631801.jpg", "00631701.jpg", "emptyBasket.png" };
@@ -24,7 +69,7 @@ namespace BlockhashDotNet.Winforms.Test
                 var hash = result.ToHashString();
 
                 Console.WriteLine($"{hash}  {filename}");
-                Assert.AreEqual(expect, hash);
+                AreEqual(expect, hash);
             }
         }
         [TestMethod]

@@ -1,15 +1,16 @@
 ﻿using System;
+//using BitArray = System.Collections.BitArray;
+using BitArray = BlockhashDotNet.BitSet;
 using System.Drawing;
 using System.Drawing.Imaging;
-using BlockhashDotNet;
 
 namespace BlockhashDotNet.Winforms
 {
     public static class Blockhash
     {
-        public static System.Collections.BitArray Calc(int bits, Bitmap bitmap, Method method = Method.Normal)
+        public static BitArray Calc(int bits, Bitmap bitmap, Method method = Method.Normal)
         {
-            var data = default(BitmapData);
+            BitmapData data = default;
             try
             {
                 data = bitmap.LockBits(

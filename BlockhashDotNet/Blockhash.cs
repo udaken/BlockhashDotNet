@@ -1,5 +1,7 @@
 ﻿using System;
-using System.Collections;
+//using BitArray = System.Collections.BitArray;
+using BitArray = BlockhashDotNet.BitSet;
+
 using static System.MathF;
 
 #if !NETCOREAPP2_0 && !NETCOREAPP2_1 && !NETCOREAPP2_2 && !NETCOREAPP3_0
@@ -39,7 +41,7 @@ namespace BlockhashDotNet
         public static string ToHashString(this BitArray bits)
         {
             var length = (bits.Length - 1) / 8 + 1;
-            var result = new System.Text.StringBuilder(length);
+            var result = new System.Text.StringBuilder(length * 2);
             for (var i = 0; i < length; i++)
             {
                 var index = i * 8;
@@ -76,12 +78,12 @@ namespace BlockhashDotNet
         }
         public static int HammingDistance(ReadOnlySpan<byte> hash1, ReadOnlySpan<byte> hash2)
         {
-            var d = 0;
             if (hash1.Length != hash2.Length)
             {
                 throw new ArgumentException("Can't compare hashes with different length");
             }
 
+            var d = 0;
             for (var i = 0; i < hash1.Length; i++)
             {
                 d += popcnt((byte)(hash1[i] ^ hash2[i]));
@@ -90,8 +92,12 @@ namespace BlockhashDotNet
         }
         public static int HammingDistance(BitArray hash1, BitArray hash2)
         {
-            var d = 0;
+            if (hash1.Length != hash2.Length)
+            {
+                throw new ArgumentException("Can't compare hashes with different length");
+            }
 
+            var d = 0;
             var bits = hash1.Xor(hash2);
             for (var i = 0; i < bits.Length; i++)
             {

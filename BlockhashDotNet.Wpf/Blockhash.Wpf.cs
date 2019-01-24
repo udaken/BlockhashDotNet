@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Threading.Tasks;
+
+//using BitArray = System.Collections.BitArray;
+using BitArray = BlockhashDotNet.BitSet;
 
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -13,7 +12,7 @@ namespace Blockhash.Wpf
 {
     public partial class Blockhash
     {
-        public static System.Collections.BitArray Calc(int bits, BitmapSource bitmapSource)
+        public static BitArray Calc(int bits, BitmapSource bitmapSource)
         {
             if (bitmapSource is null)
                 throw new ArgumentNullException(nameof(bitmapSource));
@@ -25,7 +24,7 @@ namespace Blockhash.Wpf
             var result = BlockhashDotNet.Blockhash.Calc(bits, buf, bitmap.PixelWidth, bitmap.PixelHeight);
             return result;
         }
-        public static System.Collections.BitArray Calc(int bits, WriteableBitmap bitmap)
+        public static BitArray Calc(int bits, WriteableBitmap bitmap)
         {
             if (bitmap is null)
                 throw new ArgumentNullException(nameof(bitmap));
@@ -33,7 +32,8 @@ namespace Blockhash.Wpf
             try
             {
                 bitmap.Lock();
-                var result = BlockhashDotNet.Blockhash.Calc(bits, bitmap.BackBuffer.ToReadOnlySpan(bitmap.BackBufferStride * bitmap.PixelHeight), bitmap.PixelWidth, bitmap.PixelHeight);
+                var result = BlockhashDotNet.Blockhash.Calc(
+                    bits, bitmap.BackBuffer.ToReadOnlySpan(bitmap.BackBufferStride * bitmap.PixelHeight), bitmap.PixelWidth, bitmap.PixelHeight);
                 return result;
             }
             finally

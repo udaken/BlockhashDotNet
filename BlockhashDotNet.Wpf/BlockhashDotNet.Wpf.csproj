@@ -1,11 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>net472</TargetFramework>
     <UseWPF>true</UseWPF>
     <LangVersion>latest</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <ApplicationIcon />
+    <StartupObject />
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -17,6 +19,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\BlockhashDotNet\BitSet.cs" Link="BitSet.cs" />
     <Compile Include="..\BlockhashDotNet\Blockhash.cs" Link="Blockhash.cs" />
     <Compile Include="..\BlockhashDotNet\SpanSortHelper.cs" Link="SpanSortHelper.cs" />
     <Compile Include="..\BlockhashDotNet.Winforms\Unsafe.cs" Link="Unsafe.cs" />
